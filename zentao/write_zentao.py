@@ -26,6 +26,12 @@ class WriteZentao:
 
 
 if __name__ == '__main__':
+    log_path = curPath + '/write_zentao.log'
+    logging.basicConfig(level=logging.INFO,
+                        format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                        datefmt='%a, %d %b %Y %H:%M:%S',
+                        filename=log_path,
+                        filemode='w')
     # 获取任务明细
     work = GetWork.get_work(None)
     if work:
