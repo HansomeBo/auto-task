@@ -24,6 +24,12 @@ class WriteZentao:
     def __init__(self):
         print("__init__")
 
+    def wirte_zentao(self, data, url, token):
+        result = requests.post(url, data=data.encode("utf-8"),
+                               headers={"Content-Type": "application/x-www-form-urlencoded"},
+                               cookies=token[1])
+        return result
+
 
 if __name__ == '__main__':
     log_path = curPath + '/write_zentao.log'
@@ -42,9 +48,13 @@ if __name__ == '__main__':
             url = Config.host + Config.task_url
             data = 'id[1]=1&dates[1]=' + work.date + '&consumed[1]=8&left[1]=8&work[1]=' + work.work
             logging.info("填写禅道url:" + url + ",data:" + data)
-            result = requests.post(url, data=data.encode("utf-8"),
-                                   headers={"Content-Type": "application/x-www-form-urlencoded"},
-                                   cookies=token[1])
+            # 进行5次尝试
+            for i in range(0, 5):
+                result = WriteZentao.wirte_zentao(None, data, url, token)
+                logging.info("请求禅道结果：" + str(result))
+                if result.status_code == 200:
+                    logging.info("请求禅道成功")
+                    break
         else:
             logging.info("登录失败")
     else:
