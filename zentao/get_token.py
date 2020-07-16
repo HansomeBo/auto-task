@@ -46,13 +46,15 @@ class GetToken():
 
 
 if __name__ == '__main__':
-    host = "http://10.253.40.224:8018"
-    url = host + "/zentao/task-recordEstimate-638.html?onlybody=yes"
-    cookies = GetToken().get_token()[1]
-    text_1 = requests.get(url, cookies=GetToken().get_token()[1]).text
-    headers_1 = {"Content-Type": "application/x-www-form-urlencoded"}
-    date = datetime.datetime.now().strftime('%Y-%m-%d')
-    work = "百行征信漏报数据的补报ssss"
-    data = 'id[1]=1&dates[1]=' + date + '&consumed[1]=8&left[1]=8&work[1]=' + work
-    result = requests.post(url, data=data.encode("utf-8"), headers=headers_1, cookies=GetToken().get_token()[1])
-    print(result.text)
+    token = GetToken().get_token()
+    print(token)
+    print(token[1])
+    url = "http://10.253.40.224:8018/zentao/my-task.html"
+    text = requests.get(Config.host + "/zentao/my-task.html",
+                        headers={"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"},
+                        cookies=token[1]).text
+    # print(text)
+    str = "<a href='/zentao/task-view-638.html' style='color: '>7月资产端日常任务-徐博</a>"
+    s = re.search("(<a href[^\d]+)([\d]+)(\.html)(.*7月.*</a>)", text)
+    print(s.group())
+    print(s.group(2))
