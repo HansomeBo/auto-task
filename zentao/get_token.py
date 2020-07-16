@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+# coding=utf-8
+# !/usr/bin/env python
 
 import requests
 import hashlib
 import re
-import datetime
 
 from zentao.config import Config
 
