@@ -11,6 +11,13 @@ from zentao.config import Config
 from zentao.get_token import GetToken
 from zentao.get_work import GetWork
 
+
+class WriteZentao:
+
+    def __init__(self):
+        print("__init__")
+
+
 if __name__ == '__main__':
     # 获取任务明细
     work = GetWork.get_work(None)
