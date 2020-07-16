@@ -2,10 +2,16 @@
 # @Author : HansomeBo
 # @File : write_zentao.py
 # @Software: PyCharm
-import logging
 
+import sys
+import os
+
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = os.path.split(curPath)[0]
+sys.path.append(rootPath)
+
+import logging
 import requests
-import re
 
 from zentao.config import Config
 from zentao.get_token import GetToken
