@@ -23,10 +23,9 @@ if __name__ == '__main__':
 
     like_result = []
     try:
-        html = requests.Session().get(like_url, headers=head)
-        html = html.text
-        like_result += re.compile(r'href="/f\?kw=([^ ]+)"').findall(html)
-        # like_result = re.search(r'title="(.+?)">([^<]+)</a></td><td>',html).group(1)
+        html = requests.Session().get(like_url, headers=head).text
+        # like_result += re.compile(r'href="/f\?kw=([^ ]+)"').findall(html)
+        like_result += re.compile(r'title="([^"]+)">[^<]+</a></td><td>').findall(html)
     except urllib.error.HTTPError as e:
         print(e.reason)
 
