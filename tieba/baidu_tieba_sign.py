@@ -1,9 +1,23 @@
 # -*- coding:utf-8 -*-
+import logging
+import os
+import sys
+
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = os.path.split(curPath)[0]
+sys.path.append(rootPath)
+
 import requests
 import urllib.error
 import re
 
 if __name__ == '__main__':
+    log_path = curPath + '/baidu_tieba_sign.log'
+    logging.basicConfig(level=logging.INFO,
+                        format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                        datefmt='%a, %d %b %Y %H:%M:%S',
+                        filename=log_path,
+                        filemode='a')
     head = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Encoding': 'gzip, deflate',
@@ -26,6 +40,7 @@ if __name__ == '__main__':
         html = requests.Session().get(like_url, headers=head).text
         # like_result += re.compile(r'href="/f\?kw=([^ ]+)"').findall(html)
         like_result += re.compile(r'title="([^"]+)">[^<]+</a></td><td>').findall(html)
+        logging.info("贴吧签到集合:" + str(like_result))
     except urllib.error.HTTPError as e:
         print(e.reason)
 
@@ -36,6 +51,8 @@ if __name__ == '__main__':
             'tbs': tbs
         }
         try:
+            logging.info("进行贴吧：" + name + " 签到")
             r = requests.post(sign_url, data=data, headers=head)
+            logging.info("贴吧：" + name + " 签到结果：" + str(r))
         except urllib.error.HTTPError as e:
             print(e.reason)
