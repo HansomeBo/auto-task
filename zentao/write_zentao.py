@@ -51,7 +51,7 @@ if __name__ == '__main__':
             # 进行5次尝试
             for i in range(0, 5):
                 result = WriteZentao.wirte_zentao(None, data, url, token)
-                logging.info("请求禅道结果：" + str(result))
+                logging.info("请求禅道结果：" + str(result.content) + str(result))
                 if result.status_code == 200:
                     logging.info("请求禅道成功")
                     break
