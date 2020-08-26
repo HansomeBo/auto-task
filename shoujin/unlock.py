@@ -15,7 +15,7 @@ sys.path.append(rootPath)
 
 
 def unlock():
-    db = pymysql.connect("rm-bp15y8hca789o5hp8.mysql.rds.aliyuncs.com", "zereader", "zereader2018W", "task_batch")
+    db = pymysql.connect("rm-bp15y8hca789o5hp8.mysql.rds.aliyuncs.com", "sjw_jsb_xub", "5929$xUb0", "task_batch")
     sql = "select loan_code, SUBSTRING_INDEX(protocol_key, '_', -1) as protocol_type, my_key from task_batch.t_protocol_lock_record where status = 1 and TIMESTAMPDIFF(minute, create_dttm, now()) > 20"
     cursor = db.cursor()
     cursor.execute(sql)
