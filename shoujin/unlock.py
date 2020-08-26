@@ -25,8 +25,10 @@ def unlock():
             1] + "&myKey=" + data[2]
         requests.get(url)
         data = cursor.fetchone()
+    cursor.execute("update protocol.t_accrual_event set cou = 1 where status = '-1'")
     cursor.close()
     db.close()
+
 
 if __name__ == '__main__':
     log_path = curPath + '/unlock.log'
