@@ -26,6 +26,7 @@ def unlock():
         requests.get(url)
         data = cursor.fetchone()
     cursor.execute("update protocol.t_accrual_event set cou = 1 where status = '-1'")
+    db.commit()
     cursor.close()
     db.close()
 
