@@ -22,7 +22,7 @@ def unfrozen_trade(fund_acc, amt):
 
 if __name__ == '__main__':
     db = pymysql.connect("172.31.20.11", "root", "sjadminos", "dz")
-    sql = 'select account_code,diff from account_compare_result_check t where diff > 0 and status = 0'
+    sql = 'select account_code,diff from account_compare_result_check t where diff > 0'
     cursor = db.cursor()
     cursor.execute(sql)
     data = cursor.fetchone()

@@ -21,4 +21,4 @@ def unfrozen_trade(fund_acc, amt):
 
 
 if __name__ == '__main__':
-    unfrozen_trade(sys.argv[1], sys.argv[2])
+    unfrozen_trade('9595105116058009', 0.01)
