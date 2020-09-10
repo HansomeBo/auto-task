@@ -1,13 +1,29 @@
 # coding=utf-8
-# @Time : 2020/8/27 10:32 上午
+# @Time : 2020/9/10 11:08 上午
 # @Author : HansomeBo
-# @File : unfrozen.py
+# @File : shoujin_api.py
 # @Software: PyCharm
-import random
 import datetime
-import sys
+import random
 
 import requests
+
+
+def unlock(loan_code, protocol_type, my_key):
+    url_unlock = "http://10.253.124.53:9999/task-batch/lock/unLock?loanCode=" + loan_code + "&protocolType=" + protocol_type + "&myKey=" + my_key
+    response = requests.get(url_unlock)
+    if response.text == 'true':
+        return True
+    return False
+
+
+def generate_puchase(loan_code, account_no, period):
+    url_buy_back = "http://10.253.124.53:9999/task-batch/test/testPurchase?loanCode=" + loan_code + "&accountNo=" + account_no + "&period=" + str(
+        period)
+    response = requests.get(url_buy_back)
+    if not response.ok:
+        return False
+    return True
 
 
 def unfrozen_trade(fund_acc, amt, assoSerial):
@@ -21,4 +37,4 @@ def unfrozen_trade(fund_acc, amt, assoSerial):
 
 
 if __name__ == '__main__':
-    unfrozen_trade('9595105116058009', 0.01, '59520171128411026202')
+    print(unlock("JKSQ20200518000960DK", "megre", "12121212121"))
