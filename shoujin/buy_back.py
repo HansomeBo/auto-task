@@ -3,10 +3,15 @@
 # @Author : HansomeBo
 # @File : buy_back.py
 # @Software: PyCharm
+import os
 import sys
 import time
 
-from shoujin import shoujin_api, shoujin_db
+curPath = os.path.abspath(os.path.dirname(__file__))
+rootPath = os.path.split(curPath)[0]
+sys.path.append(rootPath)
+
+from shoujin import shoujin_db, shoujin_api
 
 
 def buy_back(loan_code):
@@ -26,7 +31,8 @@ def buy_back(loan_code):
 
 
 if __name__ == '__main__':
-    for loan_code in sys.argv:
-        if str(loan_code).find('JKSQ') >= 0:
-            buy_back(loan_code)
+    # for loan_code in sys.argv:
+    #     if str(loan_code).find('JKSQ') >= 0:
+    #         buy_back(loan_code)
+    buy_back('JKSQ2320329320')
     shoujin_db.close_db()
