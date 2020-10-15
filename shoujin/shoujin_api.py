@@ -11,6 +11,7 @@ import requests
 
 def unlock(loan_code, protocol_type, my_key):
     url_unlock = "http://10.253.124.53:9999/task-batch/lock/unLock?loanCode=" + loan_code + "&protocolType=" + protocol_type + "&myKey=" + my_key
+    print(url_unlock)
     response = requests.get(url_unlock)
     if response.text == 'true':
         return True
@@ -37,4 +38,4 @@ def unfrozen_trade(fund_acc, amt, assoSerial):
 
 
 if __name__ == '__main__':
-    print(unlock("JKSQ20200518000960DK", "megre", "12121212121"))
+    print(unfrozen_trade("9595108264137002", "5.07", ""))

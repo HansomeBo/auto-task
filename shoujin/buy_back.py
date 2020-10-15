@@ -22,17 +22,16 @@ def buy_back(loan_code):
         return
     # 生成回购记录
     flag_buy_back = shoujin_api.generate_puchase(loan_code, 'ZH2016040614245559', period)
-    print('生成回购记录 loan_code : ' + loan_code + ',period : ' + str(period) + ',response : ' + flag_buy_back)
+    print('生成回购记录 loan_code : ' + loan_code + ',period : ' + str(period) + ',response : ' + str(flag_buy_back))
     # 休眠两秒后解锁
     time.sleep(2)
     my_key = shoujin_db.get_lock_my_key(loan_code)
     if my_key:
-        shoujin_api.unlock(loan_code, 'megre', my_key)
+        shoujin_api.unlock(loan_code, 'merge', my_key)
 
 
 if __name__ == '__main__':
-    # for loan_code in sys.argv:
-    #     if str(loan_code).find('JKSQ') >= 0:
-    #         buy_back(loan_code)
-    buy_back('JKSQ2320329320')
+    for loan_code in sys.argv:
+        if str(loan_code).find('JKSQ') >= 0:
+            buy_back(loan_code)
     shoujin_db.close_db()
