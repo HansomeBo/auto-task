@@ -32,9 +32,18 @@ def generate_puchase(loan_code, account_no, period):
     return True
 
 
-def compensatory(loan_code, period, account_no):
+def repay_compensatory(loan_code, period, account_no):
     url_compensatory = "http://10.253.124.53:9999/repayment-asset-order-web/repayment/order/repayTrans"
     data = '{"accountNo": "' + account_no + '","channelNo": "auto","loanCode": "' + loan_code + '","repayWay": "3","repayType": "2","period": ' + period + ',"endPeriod": ' + period + '}'
+    response = requests.post(url_compensatory, data=data, headers=headers)
+    if not response.ok:
+        return False
+    return response.text
+
+
+def repay_puchase(loan_code, account_no):
+    url_compensatory = "http://10.253.124.53:9999/repayment-asset-order-web/repayment/order/repayTrans"
+    data = '{"accountNo": "' + account_no + '","channelNo": "auto","loanCode": "' + loan_code + '","repayWay": "3","repayType": "4"}'
     response = requests.post(url_compensatory, data=data, headers=headers)
     if not response.ok:
         return False
