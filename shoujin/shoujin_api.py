@@ -8,6 +8,11 @@ import random
 
 import requests
 
+headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+}
+
 
 def unlock(loan_code, protocol_type, my_key):
     url_unlock = "http://10.253.124.53:9999/task-batch/lock/unLock?loanCode=" + loan_code + "&protocolType=" + protocol_type + "&myKey=" + my_key
@@ -27,6 +32,15 @@ def generate_puchase(loan_code, account_no, period):
     return True
 
 
+def compensatory(loan_code, period, account_no):
+    url_compensatory = "http://10.253.124.53:9999/repayment-asset-order-web/repayment/order/repayTrans"
+    data = '{"accountNo": "' + account_no + '","channelNo": "auto","loanCode": "' + loan_code + '","repayWay": "3","repayType": "2","period": ' + period + ',"endPeriod": ' + period + '}'
+    response = requests.post(url_compensatory, data=data, headers=headers)
+    if not response.ok:
+        return False
+    return response.text
+
+
 def unfrozen_trade(fund_acc, amt, assoSerial):
     order_id = datetime.datetime.now().strftime('%Y%m%d%H%M%S') + str(random.randint(10000000000, 20000000000))
     print(str(fund_acc) + "," + str(amt) + "," + order_id)
@@ -38,4 +52,4 @@ def unfrozen_trade(fund_acc, amt, assoSerial):
 
 
 if __name__ == '__main__':
-    print(unfrozen_trade("9595108264137002", "5.07", ""))
+    print(compensatory("JKSQ20200719000421DK", "3", "ZH20190604151818198629"))
