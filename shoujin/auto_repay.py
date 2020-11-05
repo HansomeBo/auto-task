@@ -21,4 +21,5 @@ if __name__ == '__main__':
     for loan_info in buy_back_list:
         response = shoujin_api.repay_puchase(str(loan_info[0]), str(loan_info[1]))
         print(response)
+    shoujin_db.update_outer_transaction()
     shoujin_db.close_db()

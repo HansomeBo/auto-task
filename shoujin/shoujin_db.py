@@ -34,3 +34,13 @@ def get_buy_back_list():
     sql = "select i.loan_code, account_no from protocol.t_external_organ_repay i where 1 = 1 and status = 0 and pay_way = 'repo' and create_datetime > current_date and i.account_no in ('ZH20190604151818198629','ZH20180228172509002807','ZH20190426154721','ZH20180816140754000862','ZH20180306100738000152','ZH20200417115742830950') group by loan_code,account_no"
     cursor.execute(sql)
     return cursor.fetchall()
+
+def update_outer_transaction():
+    db_lmh = pymysql.connect("rm-bp15y8hca789o5hp8.mysql.rds.aliyuncs.com", "sjw_jsb_limh", "jsb_limh", "asset_trans_outer")
+    cursor_lmh = db_lmh.cursor()
+    sql1 = "update asset_trans_outer.t_external_trade_event a set a.cou = 0 where a.status != 'S' and a.status !='C' and TIMESTAMPDIFF(minute,a.create_dttm,now()) > 40"
+    sql2 = "update asset_trans_outer.t_repay_event a set a.cou = 0 where a.status != 2  and status != 3  and TIMESTAMPDIFF(minute,a.create_dttm,now()) > 40"
+    cursor_lmh.execute(sql1)
+    cursor_lmh.execute(sql2)
+    cursor_lmh.close()
+    db_lmh.close()
