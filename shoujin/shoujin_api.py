@@ -61,4 +61,4 @@ def unfrozen_trade(fund_acc, amt, assoSerial):
 
 
 if __name__ == '__main__':
-    print(compensatory("JKSQ20200719000421DK", "3", "ZH20190604151818198629"))
+    print(generate_puchase("JKSQ20200610000546DK", "6", "ZH2016072911360170"))

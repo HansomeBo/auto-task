@@ -14,14 +14,14 @@ sys.path.append(rootPath)
 from shoujin import shoujin_db, shoujin_api
 
 
-def buy_back(loan_code):
+def buy_back(loan_code, account_no):
     # 查询应回购期数
     period = shoujin_db.get_purchase_period(loan_code)
     if period is None:
         print(loan_code + "查不到应回购的期数")
         return
     # 生成回购记录
-    flag_buy_back = shoujin_api.generate_puchase(loan_code, 'ZH2016040614245559', period)
+    flag_buy_back = shoujin_api.generate_puchase(loan_code, account_no, period)
     print('生成回购记录 loan_code : ' + loan_code + ',period : ' + str(period) + ',response : ' + str(flag_buy_back))
     # 休眠两秒后解锁
     time.sleep(2)
@@ -33,5 +33,5 @@ def buy_back(loan_code):
 if __name__ == '__main__':
     for loan_code in sys.argv:
         if str(loan_code).find('JKSQ') >= 0:
-            buy_back(loan_code)
+            buy_back(loan_code, 'ZH2016040614245559')
     shoujin_db.close_db()
