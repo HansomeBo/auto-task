@@ -35,3 +35,7 @@ if __name__ == '__main__':
         if str(loan_code).find('JKSQ') >= 0:
             buy_back(loan_code, 'ZH2016040614245559')
     shoujin_db.close_db()
+    # buy_back('JKSQ20200615000348DK', 'ZH2016072911360170')
+    # buy_back('JKSQ20200615000350DK', 'ZH2016072911360170')
+    # buy_back('JKSQ20200615000352DK', 'ZH2016072911360170')
+    # shoujin_db.close_db()

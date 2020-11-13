@@ -61,4 +61,6 @@ def unfrozen_trade(fund_acc, amt, assoSerial):
 
 
 if __name__ == '__main__':
-    print(generate_puchase("JKSQ20200610000546DK", "6", "ZH2016072911360170"))
+    print(generate_puchase("JKSQ20200615000348DK", "ZH2016072911360170", 5))
+    print(generate_puchase("JKSQ20200615000350DK", "ZH2016072911360170", 5))
+    print(generate_puchase("JKSQ20200615000350DK", "ZH2016072911360170", 5))

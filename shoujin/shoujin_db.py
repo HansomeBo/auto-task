@@ -43,4 +43,5 @@ def update_outer_transaction():
     cursor_lmh.execute(sql1)
     cursor_lmh.execute(sql2)
     cursor_lmh.close()
+    db_lmh.commit()
     db_lmh.close()
