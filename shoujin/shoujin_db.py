@@ -31,7 +31,7 @@ def get_compensatory_list():
     return cursor.fetchall()
 
 def get_buy_back_list():
-    sql = "select i.loan_code, account_no from protocol.t_external_organ_repay i where 1 = 1 and status = 0 and pay_way = 'repo' and create_datetime > current_date and i.account_no in ('ZH20180228172509002807','ZH20190426154721','ZH20180816140754000862','ZH20180306100738000152') group by loan_code,account_no"
+    sql = "select i.loan_code, account_no from protocol.t_external_organ_repay i where 1 = 1 and status = 0 and pay_way = 'repo' and create_datetime > current_date and i.account_no in ('ZH20200417115742830950') group by loan_code,account_no"
     cursor.execute(sql)
     return cursor.fetchall()
 
