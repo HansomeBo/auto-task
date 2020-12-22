@@ -31,6 +31,13 @@ def generate_puchase(loan_code, account_no, period):
         return False
     return True
 
+def faxi_reduce(loan_code, period):
+    url_buy_back = "/protocol-web/feeRelief/feeReliefByLoanCode?loanCode=" + loan_code + "&period=" + str(period)
+    response = requests.get(url_buy_back)
+    if not response.ok:
+        return False
+    return True
+
 
 def repay_compensatory(loan_code, period, account_no):
     url_compensatory = "http://10.253.124.53:9999/repayment-asset-order-web/repayment/order/repayTrans"

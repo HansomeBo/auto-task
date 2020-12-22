@@ -26,7 +26,17 @@ def get_lock_my_key(loan_code):
     return cursor.fetchone()[0]
 
 def get_compensatory_list():
-    sql = "select i.loan_code, i.period, r.account_no from protocol.t_interior_debt i left join protocol.t_asset_core c on c.loan_code = i.loan_code left join protocol.t_external_organ_repay r on r.loan_code = i.loan_code and r.period = i.period where i.item_type = 'interest'   and r.item_type = 'interest'   and i.expire_date = current_date   and i.status = 0   and r.pay_way = 'commuting'   and i.credito_type = 'invest'   and ((r.account_no = 'ZH20180228172509002807' and         c.product_code in ('SJ441010', 'SJ441011', 'SJ441012', 'PC20190304104203001', 'PC20190329195814002')) or    (r.account_no = 'ZH20190604151818198629' and c.product_code in ('PC20190611172657001','PC20200319153425002','PC20200709132533006')) or  (r.account_no = 'ZH20190426154721' and c.product_code in ('PC20190513111412001')) or (r.account_no = 'ZH20200417115742830950' and c.product_code in ('PC20200420141427001')) or (r.account_no = 'ZH20180306100738000152' and c.product_code in ('SJ439008', 'SJ439006', 'SJ439005')))"
+    sql = "select i.loan_code, i.period, r.account_no from protocol.t_interior_debt i inner join protocol.t_external_organ_repay r on r.loan_code = i.loan_code and r.period = i.period where i.item_type = 'interest' and r.item_type = 'interest' and i.expire_date = current_date and i.status = 0 and r.pay_way = 'commuting' and i.credito_type = 'invest' and r.account_no in ('ZH20190604151818198629')"
+    cursor.execute(sql)
+    return cursor.fetchall()
+
+def get_kuainiu_list():
+    sql = "select i.loan_code, i.period, r.account_no from protocol.t_interior_debt i inner join protocol.t_external_organ_repay r on r.loan_code = i.loan_code and r.period = i.period where i.item_type = 'interest' and r.item_type = 'interest' and i.expire_date = current_date and i.status = 0 and r.pay_way = 'commuting' and i.credito_type = 'invest' and r.account_no in ('ZH20190604151818198629')"
+    cursor.execute(sql)
+    return cursor.fetchall()
+
+def get_faxireduce_list():
+    sql = "select t.loan_code,t.period from protocol.t_external_organ_fee_asset t inner join protocol.t_asset_core c on c.loan_code = t.loan_code inner join protocol.t_external_debt s on s.loan_code = t.loan_code and s.period  = t.period + 1 where c.product_code = 'PC20200420141427001' and t.expire_date = date_sub(current_date, INTERVAL 1 MONTH ) and s.status = 0 and s.item_type = 'interest' and s.credito_type = 'invest' and s.expire_date = current_date and t.status = 0 and t.must_amt > 0 and t.account_no = 'ZH20200417115742830950'"
     cursor.execute(sql)
     return cursor.fetchall()
 
