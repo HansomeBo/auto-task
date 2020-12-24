@@ -32,7 +32,7 @@ def generate_puchase(loan_code, account_no, period):
     return True
 
 def faxi_reduce(loan_code, period):
-    url_buy_back = "/protocol-web/feeRelief/feeReliefByLoanCode?loanCode=" + loan_code + "&period=" + str(period)
+    url_buy_back = "http://10.253.124.53:9999/protocol-web/feeRelief/feeReliefByLoanCode?loanCode=" + loan_code + "&period=" + str(period)
     response = requests.get(url_buy_back)
     if not response.ok:
         return False
@@ -68,6 +68,4 @@ def unfrozen_trade(fund_acc, amt, assoSerial):
 
 
 if __name__ == '__main__':
-    print(generate_puchase("JKSQ20200616001169DK", "ZH2016072911360170", 5))
-    # print(generate_puchase("JKSQ20200615000350DK", "ZH2016072911360170", 5))
-    # print(generate_puchase("JKSQ20200615000350DK", "ZH2016072911360170", 5))
+    print(repay_compensatory('JKSQ20200720000205DK','5','ZH20200417115742830950'))

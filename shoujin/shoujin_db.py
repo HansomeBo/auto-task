@@ -25,13 +25,13 @@ def get_lock_my_key(loan_code):
     cursor.execute(unlock_sql, loan_code)
     return cursor.fetchone()[0]
 
-def get_compensatory_list():
+def get_xinyongfei_list():
     sql = "select i.loan_code, i.period, r.account_no from protocol.t_interior_debt i inner join protocol.t_external_organ_repay r on r.loan_code = i.loan_code and r.period = i.period where i.item_type = 'interest' and r.item_type = 'interest' and i.expire_date = current_date and i.status = 0 and r.pay_way = 'commuting' and i.credito_type = 'invest' and r.account_no in ('ZH20190604151818198629')"
     cursor.execute(sql)
     return cursor.fetchall()
 
 def get_kuainiu_list():
-    sql = "select i.loan_code, i.period, r.account_no from protocol.t_interior_debt i inner join protocol.t_external_organ_repay r on r.loan_code = i.loan_code and r.period = i.period where i.item_type = 'interest' and r.item_type = 'interest' and i.expire_date = current_date and i.status = 0 and r.pay_way = 'commuting' and i.credito_type = 'invest' and r.account_no in ('ZH20190604151818198629')"
+    sql = " select distinct t.loan_code, t.period, t.account_no from protocol.t_external_organ_repay t          inner join protocol.t_asset_core c on c.loan_code = t.loan_code          inner join protocol.t_external_debt s on s.loan_code = t.loan_code and s.period = t.period + 1 where c.product_code = 'PC20200420141427001'   and t.expire_date = date_sub(current_date, INTERVAL 1 MONTH)   and s.status = 0   and s.item_type = 'interest'   and s.credito_type = 'invest'   and s.expire_date = current_date   and t.status = 0   and t.must_amt > 0   and t.account_no = 'ZH20200417115742830950'"
     cursor.execute(sql)
     return cursor.fetchall()
 
