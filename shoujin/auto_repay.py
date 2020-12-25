@@ -23,6 +23,7 @@ if __name__ == '__main__':
         response = shoujin_api.repay_compensatory(str(loan_info[0]), str(loan_info[1]), str(loan_info[2]))
         print(response)
         if response.find("用户余额不足") != -1:
+            print("用户余额不足，退出")
             break
 
     kuainiu_data = shoujin_db.get_kuainiu_list()
@@ -30,6 +31,7 @@ if __name__ == '__main__':
         response = shoujin_api.repay_compensatory(str(loan_info[0]), str(loan_info[1]), str(loan_info[2]))
         print(response)
         if response.find("用户余额不足") != -1:
+            print("用户余额不足，退出")
             break
 
 
