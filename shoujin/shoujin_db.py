@@ -36,7 +36,7 @@ def get_kuainiu_list():
     return cursor.fetchall()
 
 def get_faxireduce_list():
-    sql = "select t.loan_code,t.period from protocol.t_external_organ_fee_asset t inner join protocol.t_asset_core c on c.loan_code = t.loan_code inner join protocol.t_external_debt s on s.loan_code = t.loan_code and s.period  = t.period + 1 where (c.product_name like '%KN%' or c.product_name like '%XYF%') and t.expire_date = date_sub(current_date, INTERVAL 1 MONTH ) and s.status = 0 and s.item_type = 'interest' and s.credito_type = 'invest' and s.expire_date = current_date and t.status = 0 and t.must_amt > 0 "
+    sql = "select t.loan_code, t.period from protocol.t_external_organ_fee_asset t  where t.account_no in ('ZH20200417115742830950','ZH20190604151818198629') and date_format(expire_date,'%d') = date_format(current_date,'%d')  and t.status = 0 and t.must_amt > 0"
     cursor.execute(sql)
     return cursor.fetchall()
 
