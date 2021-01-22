@@ -68,4 +68,4 @@ def unfrozen_trade(fund_acc, amt, assoSerial):
 
 
 if __name__ == '__main__':
-    print(repay_compensatory('JKSQ20200720000205DK','5','ZH20200417115742830950'))
+    print(unfrozen_trade('9595108617780003',3.5,''))
