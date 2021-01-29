@@ -17,14 +17,14 @@ if __name__ == '__main__':
     for loan_info in faxi_data:
         response = shoujin_api.faxi_reduce(str(loan_info[0]), str(loan_info[1]))
         print(response)
-    #
-    # xinyongfei_data = shoujin_db.get_xinyongfei_list()
-    # for loan_info in xinyongfei_data:
-    #     response = shoujin_api.repay_compensatory(str(loan_info[0]), str(loan_info[1]), str(loan_info[2]))
-    #     print(response)
-    #     if response.find("用户余额不足") != -1:
-    #         print("信用飞余额不足，退出")
-    #         break
+
+    xinyongfei_data = shoujin_db.get_xinyongfei_list()
+    for loan_info in xinyongfei_data:
+        response = shoujin_api.repay_compensatory(str(loan_info[0]), str(loan_info[1]), str(loan_info[2]))
+        print(response)
+        if response.find("用户余额不足") != -1:
+            print("信用飞余额不足，退出")
+            break
 
     kuainiu_data = shoujin_db.get_kuainiu_list()
     for loan_info in kuainiu_data:
